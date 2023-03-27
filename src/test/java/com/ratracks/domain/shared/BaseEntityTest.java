@@ -12,7 +12,6 @@ import com.ratracks.utils.TestDateUtils;
 
 public class BaseEntityTest {
     
-
     @Test
     public void newInstance() {
         BaseEntity entity = new BaseEntity();
@@ -21,4 +20,5 @@ public class BaseEntityTest {
         assertTrue(TestDateUtils.assertEquals(entity.getCreatedAt(), new Date()));
         assertTrue(TestDateUtils.assertEquals(entity.getUpdatedAt(), new Date()));
     }
+    
 }
