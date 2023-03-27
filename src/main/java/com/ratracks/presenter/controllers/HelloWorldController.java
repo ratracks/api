@@ -1,4 +1,4 @@
-package com.ratracks.controllers;
+package com.ratracks.presenter.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
