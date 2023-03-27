@@ -1,7 +1,5 @@
 package com.ratracks.domain.entities;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,8 +9,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class AnonymousUser extends User {
 
-    public AnonymousUser(String name, String id, Date createdAt, Date updatedAt) {
-        super(name, id, createdAt, updatedAt);
+    public AnonymousUser(String name) {
+        super(name);
     }
 
 }
