@@ -3,13 +3,9 @@ package com.ratracks.domain.shared;
 import java.util.Date;
 import java.util.UUID;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class BaseEntity {
 
     public BaseEntity() {
