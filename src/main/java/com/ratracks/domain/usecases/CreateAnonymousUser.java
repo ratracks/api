@@ -1,5 +1,7 @@
 package com.ratracks.domain.usecases;
 
+import java.util.UUID;
+
 import com.ratracks.domain.contracts.repositories.UserRepository;
 import com.ratracks.domain.entities.AnonymousUser;
 
@@ -22,7 +24,8 @@ public class CreateAnonymousUser implements UseCase<CreateAnonymousUser.Input, C
 
     @Override
     public Output execute(Input input) {
-        AnonymousUser user = new AnonymousUser("");
+        String name = "Anonymous_" + UUID.randomUUID().toString();
+        AnonymousUser user = new AnonymousUser(name);
 
         repository.create(user);
 
