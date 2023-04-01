@@ -24,7 +24,8 @@ public class CreateAnonymousUser implements UseCase<CreateAnonymousUser.Input, C
 
     @Override
     public Output execute(Input input) {
-        String name = "Anonymous_" + UUID.randomUUID().toString();
+        String randomUUID = UUID.randomUUID().toString();
+        String name = "Anonymous_" + randomUUID.substring(0, 8);
         AnonymousUser user = new AnonymousUser(name);
 
         repository.create(user);
