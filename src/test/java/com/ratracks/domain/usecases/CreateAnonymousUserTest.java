@@ -30,29 +30,24 @@ public class CreateAnonymousUserTest {
 
     @Test
     void returnsAnonymousUser() {
-        CreateAnonymousUser.Input input = new CreateAnonymousUser.Input();
-
-        AnonymousUser createdUser = useCase.execute(input).getCreatedUser();
+        AnonymousUser createdUser = useCase.execute(null).getCreatedUser();
 
         assertInstanceOf(AnonymousUser.class, createdUser);
     }
 
     @Test
     void createsAnonymousUser() {
-        CreateAnonymousUser.Input input = new CreateAnonymousUser.Input();
-
-        AnonymousUser createdUser = useCase.execute(input).getCreatedUser();
+        AnonymousUser createdUser = useCase.execute(null).getCreatedUser();
 
         assertEquals(createdUser.getId(), repository.users.get(0).getId());
     }
 
     @Test
     void createsUniqueAnonymousUsers() {
-        CreateAnonymousUser.Input input = new CreateAnonymousUser.Input();
         Set<String> names = new HashSet<>();
 
         for (int i = 0; i < 100; i++) {
-            AnonymousUser createdUser = useCase.execute(input).getCreatedUser();
+            AnonymousUser createdUser = useCase.execute(null).getCreatedUser();
             String name = createdUser.getName();
 
             assertTrue(name.startsWith("Anonymous_"));

@@ -7,9 +7,7 @@ import com.ratracks.domain.entities.AnonymousUser;
 
 import lombok.Value;
 
-public class CreateAnonymousUser implements UseCase<CreateAnonymousUser.Input, CreateAnonymousUser.Output> {
-
-    public static class Input {}
+public class CreateAnonymousUser implements UseCase<Void, CreateAnonymousUser.Output> {
 
     @Value
     public static class Output {
@@ -23,7 +21,7 @@ public class CreateAnonymousUser implements UseCase<CreateAnonymousUser.Input, C
     }
 
     @Override
-    public Output execute(Input input) {
+    public Output execute(Void input) {
         String randomUUID = UUID.randomUUID().toString();
         String name = "Anonymous_" + randomUUID.substring(0, 8);
         AnonymousUser user = new AnonymousUser(name);
