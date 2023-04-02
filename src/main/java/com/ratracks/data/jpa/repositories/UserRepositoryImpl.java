@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.ratracks.data.schemas.UserSchema;
 import com.ratracks.domain.contracts.repositories.UserRepository;
 import com.ratracks.domain.entities.User;
+import com.ratracks.exceptions.CreateUserException;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -21,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
             UserSchema userSchema = new UserSchema(user.getName());
             repository.save(userSchema);
         } catch (Exception e) {
-            throw new RuntimeException("Error creating user", e);
+            throw new CreateUserException("Error creating user", e);
         }
     }
 }
