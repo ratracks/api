@@ -11,10 +11,10 @@ public class CreateAnonymousUser implements UseCase<Void, CreateAnonymousUser.Ou
 
     @Value
     public static class Output {
-        private AnonymousUser createdUser;
+        AnonymousUser createdUser;
     }
 
-    private UserRepository repository;
+    private final UserRepository repository;
 
     public CreateAnonymousUser(UserRepository repository) {
         this.repository = repository;

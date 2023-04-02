@@ -10,7 +10,7 @@ import com.ratracks.exceptions.CreateUserException;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private JpaUserRepository repository;
+    private final JpaUserRepository repository;
 
     public UserRepositoryImpl(JpaUserRepository repository){
         this.repository = repository;
@@ -21,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
         try {
             UserSchema userSchema = new UserSchema(user.getName());
             repository.save(userSchema);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new CreateUserException("Error creating user", e);
         }
     }
