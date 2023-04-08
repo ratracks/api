@@ -17,15 +17,15 @@ import com.ratracks.domain.entities.AnonymousUser;
 import com.ratracks.repositories.InMemoryUserRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateAnonymousUserTest {
+public class CreateAnonymousUserUsecaseTest {
 
-    private CreateAnonymousUser useCase;
+    private CreateAnonymousUserUsecase useCase;
     private InMemoryUserRepository repository;
 
     @BeforeEach
     void setup() {
         repository = new InMemoryUserRepository();
-        useCase = new CreateAnonymousUser(repository);
+        useCase = new CreateAnonymousUserUsecase(repository);
     }
 
     @Test

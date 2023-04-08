@@ -6,8 +6,10 @@ import com.ratracks.domain.contracts.repositories.UserRepository;
 import com.ratracks.domain.entities.AnonymousUser;
 
 import lombok.Value;
+import lombok.AllArgsConstructor;
 
-public class CreateAnonymousUser implements UseCase<Void, CreateAnonymousUser.Output> {
+@AllArgsConstructor
+public class CreateAnonymousUserUsecase implements UseCase<Void, CreateAnonymousUserUsecase.Output> {
 
     @Value
     public static class Output {
@@ -15,10 +17,6 @@ public class CreateAnonymousUser implements UseCase<Void, CreateAnonymousUser.Ou
     }
 
     private final UserRepository repository;
-
-    public CreateAnonymousUser(UserRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public Output execute(Void input) {
@@ -28,6 +26,6 @@ public class CreateAnonymousUser implements UseCase<Void, CreateAnonymousUser.Ou
 
         repository.create(user);
 
-        return new CreateAnonymousUser.Output(user);
+        return new CreateAnonymousUserUsecase.Output(user);
     }
 }

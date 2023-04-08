@@ -1,6 +1,6 @@
 package com.ratracks.domain.shared;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import lombok.Data;
@@ -10,11 +10,11 @@ public class BaseEntity {
 
     public BaseEntity() {
         this.id = UUID.randomUUID();
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     private UUID id;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

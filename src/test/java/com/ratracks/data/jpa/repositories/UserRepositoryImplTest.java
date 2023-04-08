@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class UserRepositoryImplTest {
@@ -32,7 +33,7 @@ public class UserRepositoryImplTest {
         when(jpaUserRepository.save(any(UserSchema.class))).thenAnswer(invocation -> {
             Object[] args = invocation.getArguments();
             UserSchema userSchema = (UserSchema) args[0];
-            return new UserSchema(userSchema.getName());
+            return new UserSchema(userSchema.getId(), userSchema.getCreatedAt(), userSchema.getUpdatedAt(), userSchema.getName());
         });
 
         userRepository.create(user1);

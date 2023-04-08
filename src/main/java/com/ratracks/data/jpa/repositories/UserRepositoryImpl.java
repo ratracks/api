@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void create(User user) {
         try {
-            UserSchema userSchema = new UserSchema(user.getName());
+            UserSchema userSchema = new UserSchema(user.getId(), user.getCreatedAt(), user.getUpdatedAt(), user.getName());
             repository.save(userSchema);
         } catch (Throwable e) {
             throw new CreateUserException("Error creating user", e);
