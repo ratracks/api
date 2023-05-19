@@ -14,7 +14,12 @@ public class BaseEntityTest {
     
     @Test
     void newInstance() {
-        BaseEntity entity = new BaseEntity();
+
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdAt = LocalDateTime.now();
+        LocalDateTime updatedAt = LocalDateTime.now();
+
+        BaseEntity entity = new BaseEntity(id, createdAt, updatedAt);
 
         assertEquals(UUID.class, entity.getId().getClass());
         assertTrue(TestDateUtils.assertEquals(entity.getCreatedAt(), LocalDateTime.now()));

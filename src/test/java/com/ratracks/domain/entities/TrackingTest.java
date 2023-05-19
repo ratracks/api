@@ -8,16 +8,22 @@ import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 public class TrackingTest {
 
     @Test
     public void newTrackingInstance() {
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdAt = LocalDateTime.now();
+        LocalDateTime updatedAt = LocalDateTime.now();
         String productName = "TestName";
         String trackingCode = "AA123456789BR";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
 
-        Tracking entity = new Tracking(productName, trackingCode);
+        Tracking entity = new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status);
 
         assertEquals(productName, entity.getProductName());
         assertEquals(trackingCode, entity.getTrackingCode());
@@ -27,21 +33,27 @@ public class TrackingTest {
 
     @Test
     public void newTrackingInstanceWithNullTrackingCode() {
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdAt = LocalDateTime.now();
+        LocalDateTime updatedAt = LocalDateTime.now();
         String productName = "TestName";
         String trackingCode = "";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
 
-        assertThrows(TrackingCodeException.class, () -> new Tracking(productName, trackingCode));
+        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status));
     }
 
     @Test
     public void newTrackingInstanceWithInvalidTrackingCode() {
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdAt = LocalDateTime.now();
+        LocalDateTime updatedAt = LocalDateTime.now();
         String productName = "TestName";
         String trackingCode = "INVALIDCODE";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
 
-        assertThrows(TrackingCodeException.class, () -> new Tracking(productName, trackingCode));
+        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status));
     }
 }
