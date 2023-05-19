@@ -7,9 +7,6 @@ import com.ratracks.domain.enums.Transporter;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 @AllArgsConstructor
 public class CreateTrackingUseCase implements UseCase<CreateTrackingUseCase.Input, CreateTrackingUseCase.Output> {
 

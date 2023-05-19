@@ -33,15 +33,12 @@ public class Tracking extends BaseEntity {
         this.trackingCode = trackingCode;
         this.status = Status.IN_PROGRESS;
         this.transporter = Transporter.CORREIOS;
-
     }
 
     public Tracking() {
+        super();
     }
 
-    private UUID id;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAT;
     private String productName;
     private String trackingCode;
     private Transporter transporter;
