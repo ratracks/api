@@ -33,7 +33,7 @@ public class GetTrackingUseCaseTest {
 
     @Test
     void returnsTrackings() {
-        String userId = UUID.randomUUID().toString();
+        UUID userId = UUID.randomUUID();
         Status status = Status.IN_PROGRESS;
 
         List<Tracking> mockEntities = Arrays.asList(this.createDummyTracking());

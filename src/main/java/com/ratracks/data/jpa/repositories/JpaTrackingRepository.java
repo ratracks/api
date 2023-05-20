@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface JpaTrackingRepository extends JpaRepository<TrackingSchema, UUID> {
-  List<TrackingSchema> findByStatusAndUserId(Status status, String userId);
+  List<TrackingSchema> findByStatusAndUserId(Status status, UUID userId);
 }

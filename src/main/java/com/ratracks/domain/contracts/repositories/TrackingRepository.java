@@ -11,5 +11,5 @@ public interface TrackingRepository {
     void delete(UUID trackingId);
     Tracking getById(UUID trackingId);
     List<Tracking> getAll();
-    List<Tracking> getAll(Status status, String userId);
+    List<Tracking> getAll(Status status, UUID userId);
 }

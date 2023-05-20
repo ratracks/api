@@ -85,7 +85,7 @@ public class TrackingRepositoryImpl implements TrackingRepository {
     }
 
         @Override
-    public List<Tracking> getAll(Status status, String userId) throws GetAllTrackingsException {
+    public List<Tracking> getAll(Status status, UUID userId) throws GetAllTrackingsException {
         try {
             List<TrackingSchema> trackingSchemas = repository.findByStatusAndUserId(status, userId);
 

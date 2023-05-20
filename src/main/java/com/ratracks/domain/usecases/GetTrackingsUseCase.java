@@ -1,6 +1,7 @@
 package com.ratracks.domain.usecases;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
 import com.ratracks.domain.entities.Tracking;
@@ -13,7 +14,7 @@ public class GetTrackingsUseCase implements UseCase<GetTrackingsUseCase.Input, G
 
     @Value
     public static class Input {
-        String userId;
+        UUID userId;
         Status status;
     }
 

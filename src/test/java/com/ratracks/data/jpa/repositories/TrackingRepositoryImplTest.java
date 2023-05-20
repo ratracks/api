@@ -78,7 +78,7 @@ class TrackingRepositoryImplTest {
     void getById() {
         // Arrange
         UUID id = UUID.randomUUID();
-        TrackingSchema trackingSchema = createDummyTrackingSchema(id);
+        TrackingSchema trackingSchema = createDummyTrackingSchema(id,  Optional.empty());
         when(mockRepository.findById(id)).thenReturn(Optional.of(trackingSchema));
 
         // Act
@@ -133,6 +133,33 @@ class TrackingRepositoryImplTest {
     }
 
     @Test
+    void listAllTrackingsByStatusAndUserId() throws GetAllTrackingsException {
+        // Arrange
+        List<TrackingSchema> trackingSchemas = createDummyTrackingSchemas();
+        when(mockRepository.findByStatusAndUserId(any(Status.class), any(UUID.class))).thenReturn(trackingSchemas);
+
+        // Act
+        List<Tracking> result = trackingRepository.getAll(Status.IN_PROGRESS, UUID.randomUUID());
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(trackingSchemas.size(), result.size());
+
+        for (int i = 0; i < trackingSchemas.size(); i++) {
+            TrackingSchema schema = trackingSchemas.get(i);
+            Tracking tracking = result.get(i);
+
+            assertEquals(schema.getId(), tracking.getId());
+            assertEquals(schema.getCreatedAt(), tracking.getCreatedAt());
+            assertEquals(schema.getUpdatedAt(), tracking.getUpdatedAt());
+            assertEquals(schema.getProductName(), tracking.getProductName());
+            assertEquals(schema.getTrackingCode(), tracking.getTrackingCode());
+            assertEquals(schema.getTransporter(), tracking.getTransporter());
+            assertEquals(schema.getStatus(), tracking.getStatus());
+        }
+    }
+
+    @Test
     void listAllTrackingsException() {
         // Arrange
         when(mockRepository.findAll()).thenThrow(RuntimeException.class);
@@ -156,7 +183,7 @@ class TrackingRepositoryImplTest {
         return tracking;
     }
 
-    private TrackingSchema createDummyTrackingSchema(UUID id) {
+    private TrackingSchema createDummyTrackingSchema(UUID id, Optional<Status> status) {
         TrackingSchema trackingSchema = new TrackingSchema();
         trackingSchema.setId(id);
         trackingSchema.setCreatedAt(LocalDateTime.now());
@@ -164,7 +191,7 @@ class TrackingRepositoryImplTest {
         trackingSchema.setProductName("Test Product");
         trackingSchema.setTrackingCode("AA123456789BR");
         trackingSchema.setTransporter(Transporter.CORREIOS);
-        trackingSchema.setStatus(Status.IN_PROGRESS);
+        trackingSchema.setStatus(status.isPresent() ? status.get() : Status.IN_PROGRESS);
         return trackingSchema;
     }
 
@@ -172,7 +199,7 @@ class TrackingRepositoryImplTest {
         List<TrackingSchema> trackingSchemas = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             UUID id = UUID.randomUUID();
-            trackingSchemas.add(createDummyTrackingSchema(id));
+            trackingSchemas.add(createDummyTrackingSchema(id, Optional.empty()));
         }
         return trackingSchemas;
     }
