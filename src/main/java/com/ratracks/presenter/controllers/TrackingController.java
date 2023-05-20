@@ -23,10 +23,10 @@ public class TrackingController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public List<Tracking> getAllTrackings(
-        @RequestParam("userId") String userId,
-            @RequestParam("status") Status status
-    ) {
-        return getTrackingsUseCase.execute(new GetTrackingsUseCase.Input(UUID.fromString(userId), status)).getTrackings();
+            @RequestParam("userId") String userId,
+            @RequestParam("status") Status status) {
+        return getTrackingsUseCase.execute(new GetTrackingsUseCase.Input(UUID.fromString(userId), status))
+                .getTrackings();
     }
 
 }
