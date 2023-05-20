@@ -13,6 +13,8 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.mockito.Mockito.*;
 
+import java.util.UUID;
+
 public class CreateTrackingUseCaseTest {
 
     @Mock
@@ -28,28 +30,28 @@ public class CreateTrackingUseCaseTest {
 
     @Test
     public void returnsTracking () {
-
         String productName = "TestName";
         String trackingCode = "AA123456789BR";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
+        UUID userId = UUID.randomUUID();
 
-        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input(productName, trackingCode, transporter, status);
+        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input(productName, trackingCode, transporter, status, userId);
 
-        Tracking result = createTrackingUseCase.execute(input).getCreateTracking();
+        Tracking result = createTrackingUseCase.execute(input).getCreatedTracking();
 
         assertInstanceOf(Tracking.class, result);
     }
 
     @Test
     public void createTracking() {
-
         String productName = "TestName";
         String trackingCode = "AA123456789BR";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
+        UUID userId = UUID.randomUUID();
 
-        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input(productName, trackingCode, transporter, status);
+        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input(productName, trackingCode, transporter, status, userId);
 
         createTrackingUseCase.execute(input);
 
