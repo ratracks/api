@@ -3,6 +3,7 @@ package com.ratracks.data.jpa.repositories;
 import com.ratracks.data.schemas.TrackingSchema;
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
 import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.enums.Status;
 import com.ratracks.exceptions.CreateTrackingException;
 import com.ratracks.exceptions.GetAllTrackingsException;
 import com.ratracks.exceptions.GetTrackingByIdException;
@@ -66,6 +67,28 @@ public class TrackingRepositoryImpl implements TrackingRepository {
     public List<Tracking> getAll() throws GetAllTrackingsException {
         try {
             List<TrackingSchema> trackingSchemas = repository.findAll();
+            List<Tracking> trackings = new ArrayList<>();
+            for (TrackingSchema trackingSchema : trackingSchemas) {
+                trackings.add(new Tracking(
+                        trackingSchema.getId(),
+                        trackingSchema.getCreatedAt(),
+                        trackingSchema.getUpdatedAt(),
+                        trackingSchema.getProductName(),
+                        trackingSchema.getTrackingCode(),
+                        trackingSchema.getTransporter(),
+                        trackingSchema.getStatus()));
+            }
+            return trackings;
+        } catch (Exception e) {
+            throw new GetAllTrackingsException("Error when listing all trackings", e);
+        }
+    }
+
+        @Override
+    public List<Tracking> getAll(Status status, String userId) throws GetAllTrackingsException {
+        try {
+            List<TrackingSchema> trackingSchemas = repository.findByStatusAndUserId(status, userId);
+
             List<Tracking> trackings = new ArrayList<>();
             for (TrackingSchema trackingSchema : trackingSchemas) {
                 trackings.add(new Tracking(
