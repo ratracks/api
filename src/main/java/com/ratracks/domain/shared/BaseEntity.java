@@ -14,6 +14,12 @@ public class BaseEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public BaseEntity(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     private UUID id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

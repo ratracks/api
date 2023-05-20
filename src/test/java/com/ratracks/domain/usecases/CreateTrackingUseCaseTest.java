@@ -3,6 +3,8 @@ package com.ratracks.domain.usecases;
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
 import com.ratracks.domain.entities.Tracking;
 
+import com.ratracks.domain.enums.Status;
+import com.ratracks.domain.enums.Transporter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -26,7 +28,13 @@ public class CreateTrackingUseCaseTest {
 
     @Test
     public void returnsTracking () {
-        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input("TestProduct", "AA123456789BR");
+
+        String productName = "TestName";
+        String trackingCode = "AA123456789BR";
+        Status status = Status.IN_PROGRESS;
+        Transporter transporter = Transporter.CORREIOS;
+
+        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input(productName, trackingCode, transporter, status);
 
         Tracking result = createTrackingUseCase.execute(input).getCreateTracking();
 
@@ -35,7 +43,13 @@ public class CreateTrackingUseCaseTest {
 
     @Test
     public void createTracking() {
-        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input("TestProduct", "AA123456789BR");
+
+        String productName = "TestName";
+        String trackingCode = "AA123456789BR";
+        Status status = Status.IN_PROGRESS;
+        Transporter transporter = Transporter.CORREIOS;
+
+        CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input(productName, trackingCode, transporter, status);
 
         createTrackingUseCase.execute(input);
 

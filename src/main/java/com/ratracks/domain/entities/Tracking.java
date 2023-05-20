@@ -10,12 +10,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Getter
 @Setter
 @ToString(callSuper = true)
 public class Tracking extends BaseEntity {
-    public Tracking(String productName, String trackingCode) {
-        super();
+    public Tracking(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName, String trackingCode, Transporter transporter, Status status) {
+        super(id, createdAt, updatedAt);
         if (productName == null || productName.trim().isEmpty()) {
             this.productName = trackingCode;
         } else {
@@ -26,10 +29,14 @@ public class Tracking extends BaseEntity {
         } else if (!trackingCode.matches(TrackingRegex.CORREIOS_VALIDATOR)) {
             throw new TrackingCodeException("Invalid tracking code", new IllegalArgumentException());
         }
-        this.trackingCode = trackingCode;
-        this.status = Status.IN_PROGRESS;
-        this.transporter = Transporter.CORREIOS;
 
+        this.trackingCode = trackingCode;
+        this.status = status != null ? status : Status.IN_PROGRESS;
+        this.transporter = transporter != null ? transporter : Transporter.CORREIOS;
+    }
+
+    public Tracking() {
+        super();
     }
 
     private String productName;
