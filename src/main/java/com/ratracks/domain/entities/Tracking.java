@@ -31,8 +31,8 @@ public class Tracking extends BaseEntity {
         }
 
         this.trackingCode = trackingCode;
-        this.status = Status.IN_PROGRESS;
-        this.transporter = Transporter.CORREIOS;
+        this.status = status != null ? status : Status.IN_PROGRESS;
+        this.transporter = transporter != null ? transporter : Transporter.CORREIOS;
     }
 
     public Tracking() {
