@@ -1,5 +1,7 @@
 package com.ratracks.domain.usecases;
 
+import java.util.UUID;
+
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
 import com.ratracks.domain.entities.Tracking;
 import com.ratracks.domain.enums.Status;
@@ -16,11 +18,12 @@ public class CreateTrackingUseCase implements UseCase<CreateTrackingUseCase.Inpu
         String trackingCode;
         Transporter transporter;
         Status status;
+        UUID userId;
     }
 
     @Value
     public static class Output {
-        Tracking createTracking;
+        Tracking createdTracking;
     }
 
     private final TrackingRepository repository;
@@ -28,7 +31,7 @@ public class CreateTrackingUseCase implements UseCase<CreateTrackingUseCase.Inpu
     @Override
     public Output execute(Input input) {
 
-        Tracking tracking = new Tracking(null, null, null, input.productName, input.trackingCode, input.transporter, input.status);
+        Tracking tracking = new Tracking(input.productName, input.trackingCode, input.transporter, input.status, input.userId);
 
         repository.create(tracking);
 

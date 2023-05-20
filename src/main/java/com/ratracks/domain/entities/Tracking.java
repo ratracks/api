@@ -17,8 +17,26 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 public class Tracking extends BaseEntity {
-    public Tracking(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName, String trackingCode, Transporter transporter, Status status) {
+    public Tracking(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName, String trackingCode,
+            Transporter transporter, Status status, UUID userId) {
         super(id, createdAt, updatedAt);
+            
+        this.initializeTracking(productName, trackingCode, transporter, status, userId);
+    }
+
+    public Tracking(String productName, String trackingCode,
+            Transporter transporter, Status status, UUID userId) {
+        super();
+
+        this.initializeTracking(productName, trackingCode, transporter, status, userId);
+    }
+
+    public Tracking() {
+        super();
+    }
+
+    private void initializeTracking(String productName, String trackingCode,
+            Transporter transporter, Status status, UUID userId) {
         if (productName == null || productName.trim().isEmpty()) {
             this.productName = trackingCode;
         } else {
@@ -33,15 +51,12 @@ public class Tracking extends BaseEntity {
         this.trackingCode = trackingCode;
         this.status = status != null ? status : Status.IN_PROGRESS;
         this.transporter = transporter != null ? transporter : Transporter.CORREIOS;
-    }
-
-    public Tracking() {
-        super();
+        this.userId = userId;
     }
 
     private String productName;
     private String trackingCode;
     private Transporter transporter;
     private Status status;
-
+    private UUID userId;
 }

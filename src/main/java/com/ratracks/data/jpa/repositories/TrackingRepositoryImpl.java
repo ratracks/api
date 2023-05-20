@@ -33,7 +33,8 @@ public class TrackingRepositoryImpl implements TrackingRepository {
                     tracking.getProductName(),
                     tracking.getTrackingCode(),
                     tracking.getTransporter(),
-                    tracking.getStatus());
+                    tracking.getStatus(),
+                    tracking.getUserId());
             repository.save(trackingSchema);
         } catch (Throwable e) {
             throw new CreateTrackingException("Error creating tracking", e);
@@ -57,7 +58,8 @@ public class TrackingRepositoryImpl implements TrackingRepository {
                     trackingSchema.getProductName(),
                     trackingSchema.getTrackingCode(),
                     trackingSchema.getTransporter(),
-                    trackingSchema.getStatus());
+                    trackingSchema.getStatus(),
+                    trackingSchema.getUserId());
         } else {
             throw new GetTrackingByIdException("Tracking not found for ID: " + id, null);
         }
@@ -76,7 +78,8 @@ public class TrackingRepositoryImpl implements TrackingRepository {
                         trackingSchema.getProductName(),
                         trackingSchema.getTrackingCode(),
                         trackingSchema.getTransporter(),
-                        trackingSchema.getStatus()));
+                        trackingSchema.getStatus(),
+                        trackingSchema.getUserId()));
             }
             return trackings;
         } catch (Exception e) {
@@ -98,7 +101,8 @@ public class TrackingRepositoryImpl implements TrackingRepository {
                         trackingSchema.getProductName(),
                         trackingSchema.getTrackingCode(),
                         trackingSchema.getTransporter(),
-                        trackingSchema.getStatus()));
+                        trackingSchema.getStatus(),
+                        trackingSchema.getUserId()));
             }
             return trackings;
         } catch (Exception e) {

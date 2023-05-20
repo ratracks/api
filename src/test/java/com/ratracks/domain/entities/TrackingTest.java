@@ -22,8 +22,9 @@ public class TrackingTest {
         String trackingCode = "AA123456789BR";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
+        UUID userId = UUID.randomUUID();
 
-        Tracking entity = new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status);
+        Tracking entity = new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status, userId);
 
         assertEquals(productName, entity.getProductName());
         assertEquals(trackingCode, entity.getTrackingCode());
@@ -40,8 +41,9 @@ public class TrackingTest {
         String trackingCode = "";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
+        UUID userId = UUID.randomUUID();
 
-        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status));
+        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status, userId));
     }
 
     @Test
@@ -53,7 +55,8 @@ public class TrackingTest {
         String trackingCode = "INVALIDCODE";
         Status status = Status.IN_PROGRESS;
         Transporter transporter = Transporter.CORREIOS;
+        UUID userId = UUID.randomUUID();
 
-        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status));
+        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status, userId));
     }
 }

@@ -19,13 +19,14 @@ import java.util.UUID;
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
 public class TrackingSchema extends BaseEntitySchema {
 
-    public TrackingSchema(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName, String trackingCode, Transporter transporter, Status status) {
+    public TrackingSchema(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName, String trackingCode, Transporter transporter, Status status, UUID userId) {
         super(id, createdAt, updatedAt);
 
         this.productName = productName;
         this.trackingCode = trackingCode;
         this.transporter = transporter;
         this.status = status;
+        this.userId = userId;
     }
     @Column(nullable = false)
     private String productName;
@@ -39,4 +40,6 @@ public class TrackingSchema extends BaseEntitySchema {
     @Column(nullable = false)
     private Status status;
 
+    @Column(nullable = false)
+    private UUID userId;
 }
