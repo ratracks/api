@@ -38,7 +38,7 @@ public class CreateTrackingUseCaseTest {
 
         CreateTrackingUseCase.Input input = new CreateTrackingUseCase.Input(productName, trackingCode, transporter, status, userId);
 
-        Tracking result = createTrackingUseCase.execute(input).getCreateTracking();
+        Tracking result = createTrackingUseCase.execute(input).getCreatedTracking();
 
         assertInstanceOf(Tracking.class, result);
     }
