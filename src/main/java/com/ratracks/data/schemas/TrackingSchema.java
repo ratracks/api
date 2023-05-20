@@ -1,9 +1,13 @@
 package com.ratracks.data.schemas;
 
+import com.ratracks.domain.entities.User;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +32,7 @@ public class TrackingSchema extends BaseEntitySchema {
         this.status = status;
         this.userId = userId;
     }
+    
     @Column(nullable = false)
     private String productName;
 
@@ -40,6 +45,10 @@ public class TrackingSchema extends BaseEntitySchema {
     @Column(nullable = false)
     private Status status;
 
-    @Column(nullable = false)
+    @Column(name = "userId", nullable = false)
     private UUID userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
+    private UserSchema user;
 }
