@@ -4,7 +4,6 @@ import com.ratracks.domain.entities.tracking.valueobjects.TrackingCode;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import com.ratracks.domain.shared.BaseEntity;
-import com.ratracks.exceptions.TrackingCodeException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,15 +34,9 @@ public class Tracking extends BaseEntity {
     private void initializeTracking(String productName, TrackingCode trackingCode, Transporter transporter,
                                     Status status, UUID userId) {
         if (productName == null || productName.trim().isEmpty()) {
-            this.productName = trackingCode.toString();
+            this.productName = trackingCode.getCode();
         } else {
             this.productName = productName;
-        }
-
-        if (trackingCode == null || trackingCode.isEmpty()) {
-            throw new TrackingCodeException("Tracking code cannot be empty", new IllegalArgumentException());
-        } else if (!trackingCode.isValid()) {
-            throw new TrackingCodeException("Invalid tracking code", new IllegalArgumentException());
         }
 
         this.trackingCode = trackingCode;
