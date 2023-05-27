@@ -2,7 +2,8 @@ package com.ratracks.data.jpa.repositories;
 
 import com.ratracks.data.schemas.TrackingSchema;
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
+import com.ratracks.domain.entities.tracking.valueobjects.TrackingCode;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.exceptions.CreateTrackingException;
 import com.ratracks.exceptions.GetAllTrackingsException;
@@ -31,7 +32,7 @@ public class TrackingRepositoryImpl implements TrackingRepository {
                     tracking.getCreatedAt(),
                     tracking.getUpdatedAt(),
                     tracking.getProductName(),
-                    tracking.getTrackingCode(),
+                    tracking.getTrackingCode().getCode(), // Extract the tracking code value
                     tracking.getTransporter(),
                     tracking.getStatus(),
                     tracking.getUserId());
@@ -56,7 +57,7 @@ public class TrackingRepositoryImpl implements TrackingRepository {
                     trackingSchema.getCreatedAt(),
                     trackingSchema.getUpdatedAt(),
                     trackingSchema.getProductName(),
-                    trackingSchema.getTrackingCode(),
+                    new TrackingCode(trackingSchema.getTrackingCode()), // Wrap the tracking code value
                     trackingSchema.getTransporter(),
                     trackingSchema.getStatus(),
                     trackingSchema.getUserId());
@@ -69,44 +70,36 @@ public class TrackingRepositoryImpl implements TrackingRepository {
     public List<Tracking> getAll() throws GetAllTrackingsException {
         try {
             List<TrackingSchema> trackingSchemas = repository.findAll();
-            List<Tracking> trackings = new ArrayList<>();
-            for (TrackingSchema trackingSchema : trackingSchemas) {
-                trackings.add(new Tracking(
-                        trackingSchema.getId(),
-                        trackingSchema.getCreatedAt(),
-                        trackingSchema.getUpdatedAt(),
-                        trackingSchema.getProductName(),
-                        trackingSchema.getTrackingCode(),
-                        trackingSchema.getTransporter(),
-                        trackingSchema.getStatus(),
-                        trackingSchema.getUserId()));
-            }
-            return trackings;
+            return getTrackings(trackingSchemas);
         } catch (Exception e) {
             throw new GetAllTrackingsException("Error when listing all trackings", e);
         }
     }
 
-        @Override
+    @Override
     public List<Tracking> getAll(Status status, UUID userId) throws GetAllTrackingsException {
         try {
             List<TrackingSchema> trackingSchemas = repository.findByStatusAndUserId(status, userId);
 
-            List<Tracking> trackings = new ArrayList<>();
-            for (TrackingSchema trackingSchema : trackingSchemas) {
-                trackings.add(new Tracking(
-                        trackingSchema.getId(),
-                        trackingSchema.getCreatedAt(),
-                        trackingSchema.getUpdatedAt(),
-                        trackingSchema.getProductName(),
-                        trackingSchema.getTrackingCode(),
-                        trackingSchema.getTransporter(),
-                        trackingSchema.getStatus(),
-                        trackingSchema.getUserId()));
-            }
-            return trackings;
+            return getTrackings(trackingSchemas);
         } catch (Exception e) {
             throw new GetAllTrackingsException("Error when listing all trackings", e);
         }
+    }
+
+    private List<Tracking> getTrackings(List<TrackingSchema> trackingSchemas) {
+        List<Tracking> trackings = new ArrayList<>();
+        for (TrackingSchema trackingSchema : trackingSchemas) {
+            trackings.add(new Tracking(
+                    trackingSchema.getId(),
+                    trackingSchema.getCreatedAt(),
+                    trackingSchema.getUpdatedAt(),
+                    trackingSchema.getProductName(),
+                    new TrackingCode(trackingSchema.getTrackingCode()), // Wrap the tracking code value
+                    trackingSchema.getTransporter(),
+                    trackingSchema.getStatus(),
+                    trackingSchema.getUserId()));
+        }
+        return trackings;
     }
 }

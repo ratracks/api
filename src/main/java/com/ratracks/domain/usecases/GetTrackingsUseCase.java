@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
 import com.ratracks.domain.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Value;

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ratracks.domain.entities.AnonymousUser;
+import com.ratracks.domain.entities.anonymoususer.AnonymousUser;
 import com.ratracks.repositories.InMemoryUserRepository;
 
 @ExtendWith(MockitoExtension.class)

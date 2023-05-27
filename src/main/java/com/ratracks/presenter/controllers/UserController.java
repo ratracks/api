@@ -3,7 +3,7 @@ package com.ratracks.presenter.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.ratracks.domain.entities.AnonymousUser;
+import com.ratracks.domain.entities.anonymoususer.AnonymousUser;
 import com.ratracks.domain.usecases.CreateAnonymousUserUsecase;
 
 import lombok.AllArgsConstructor;

@@ -1,14 +1,8 @@
 package com.ratracks.data.schemas;
 
-import com.ratracks.domain.entities.User;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +17,8 @@ import java.util.UUID;
 @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id")
 public class TrackingSchema extends BaseEntitySchema {
 
-    public TrackingSchema(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName, String trackingCode, Transporter transporter, Status status, UUID userId) {
+    public TrackingSchema(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName,
+                          String trackingCode, Transporter transporter, Status status, UUID userId) {
         super(id, createdAt, updatedAt);
 
         this.productName = productName;
@@ -32,7 +27,7 @@ public class TrackingSchema extends BaseEntitySchema {
         this.status = status;
         this.userId = userId;
     }
-    
+
     @Column(nullable = false)
     private String productName;
 

@@ -1,5 +1,6 @@
-package com.ratracks.domain.entities;
+package com.ratracks.domain.entities.anonymoususer;
 
+import com.ratracks.domain.entities.user.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

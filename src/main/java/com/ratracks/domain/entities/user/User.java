@@ -1,4 +1,4 @@
-package com.ratracks.domain.entities;
+package com.ratracks.domain.entities.user;
 
 import com.ratracks.domain.shared.BaseEntity;
 

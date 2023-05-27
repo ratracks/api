@@ -3,7 +3,7 @@ package com.ratracks.repositories;
 import java.util.ArrayList;
 
 import com.ratracks.domain.contracts.repositories.UserRepository;
-import com.ratracks.domain.entities.User;
+import com.ratracks.domain.entities.user.User;
 
 public class InMemoryUserRepository implements UserRepository {
     public ArrayList<User> users = new ArrayList<User>();

@@ -1,7 +1,7 @@
 package com.ratracks.domain.usecases;
 
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
 
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
