@@ -1,11 +1,10 @@
-package com.ratracks.domain.entities;
+package com.ratracks.domain.entities.tracking;
 
+import com.ratracks.domain.entities.tracking.valueobjects.TrackingCode;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import com.ratracks.domain.shared.BaseEntity;
-
 import com.ratracks.exceptions.TrackingCodeException;
-import com.ratracks.utils.regex.TrackingRegex;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,17 +16,15 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 public class Tracking extends BaseEntity {
-    public Tracking(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName, String trackingCode,
-            Transporter transporter, Status status, UUID userId) {
+    public Tracking(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String productName,
+                    TrackingCode trackingCode, Transporter transporter, Status status, UUID userId) {
         super(id, createdAt, updatedAt);
-            
         this.initializeTracking(productName, trackingCode, transporter, status, userId);
     }
 
-    public Tracking(String productName, String trackingCode,
-            Transporter transporter, Status status, UUID userId) {
+    public Tracking(String productName, TrackingCode trackingCode, Transporter transporter,
+                    Status status, UUID userId) {
         super();
-
         this.initializeTracking(productName, trackingCode, transporter, status, userId);
     }
 
@@ -35,16 +32,17 @@ public class Tracking extends BaseEntity {
         super();
     }
 
-    private void initializeTracking(String productName, String trackingCode,
-            Transporter transporter, Status status, UUID userId) {
+    private void initializeTracking(String productName, TrackingCode trackingCode, Transporter transporter,
+                                    Status status, UUID userId) {
         if (productName == null || productName.trim().isEmpty()) {
-            this.productName = trackingCode;
+            this.productName = trackingCode.toString();
         } else {
             this.productName = productName;
         }
-        if (trackingCode == null || trackingCode.trim().isEmpty()) {
+
+        if (trackingCode == null || trackingCode.isEmpty()) {
             throw new TrackingCodeException("Tracking code cannot be empty", new IllegalArgumentException());
-        } else if (!trackingCode.matches(TrackingRegex.CORREIOS_VALIDATOR)) {
+        } else if (!trackingCode.isValid()) {
             throw new TrackingCodeException("Invalid tracking code", new IllegalArgumentException());
         }
 
@@ -55,7 +53,7 @@ public class Tracking extends BaseEntity {
     }
 
     private String productName;
-    private String trackingCode;
+    private TrackingCode trackingCode;
     private Transporter transporter;
     private Status status;
     private UUID userId;

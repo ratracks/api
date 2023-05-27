@@ -1,6 +1,6 @@
 package com.ratracks.domain.contracts.repositories;
 
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
 import com.ratracks.domain.enums.Status;
 
 import java.util.List;

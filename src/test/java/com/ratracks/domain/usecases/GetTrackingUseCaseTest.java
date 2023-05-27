@@ -1,8 +1,9 @@
 package com.ratracks.domain.usecases;
 
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
 
+import com.ratracks.domain.entities.tracking.valueobjects.TrackingCode;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +55,7 @@ public class GetTrackingUseCaseTest {
         tracking.setCreatedAt(LocalDateTime.now());
         tracking.setUpdatedAt(LocalDateTime.now());
         tracking.setProductName("Test Product");
-        tracking.setTrackingCode("AA123456789BR");
+        new TrackingCode("AA123456789BR");
         tracking.setTransporter(Transporter.CORREIOS);
         tracking.setStatus(Status.IN_PROGRESS);
         return tracking;

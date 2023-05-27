@@ -1,6 +1,8 @@
 package com.ratracks.data.jpa.repositories;
+
 import com.ratracks.data.schemas.TrackingSchema;
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
+import com.ratracks.domain.entities.tracking.valueobjects.TrackingCode;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import com.ratracks.exceptions.CreateTrackingException;
@@ -47,7 +49,7 @@ class TrackingRepositoryImplTest {
         assertEquals(tracking.getCreatedAt(), capturedSchema.getCreatedAt());
         assertEquals(tracking.getUpdatedAt(), capturedSchema.getUpdatedAt());
         assertEquals(tracking.getProductName(), capturedSchema.getProductName());
-        assertEquals(tracking.getTrackingCode(), capturedSchema.getTrackingCode());
+        assertEquals(tracking.getTrackingCode().getCode(), capturedSchema.getTrackingCode());
         assertEquals(tracking.getTransporter(), capturedSchema.getTransporter());
         assertEquals(tracking.getStatus(), capturedSchema.getStatus());
     }
@@ -90,7 +92,7 @@ class TrackingRepositoryImplTest {
         assertEquals(trackingSchema.getCreatedAt(), result.getCreatedAt());
         assertEquals(trackingSchema.getUpdatedAt(), result.getUpdatedAt());
         assertEquals(trackingSchema.getProductName(), result.getProductName());
-        assertEquals(trackingSchema.getTrackingCode(), result.getTrackingCode());
+        assertEquals(trackingSchema.getTrackingCode(), result.getTrackingCode().getCode());
         assertEquals(trackingSchema.getTransporter(), result.getTransporter());
         assertEquals(trackingSchema.getStatus(), result.getStatus());
     }
@@ -126,7 +128,7 @@ class TrackingRepositoryImplTest {
             assertEquals(schema.getCreatedAt(), tracking.getCreatedAt());
             assertEquals(schema.getUpdatedAt(), tracking.getUpdatedAt());
             assertEquals(schema.getProductName(), tracking.getProductName());
-            assertEquals(schema.getTrackingCode(), tracking.getTrackingCode());
+            assertEquals(schema.getTrackingCode(), tracking.getTrackingCode().getCode());
             assertEquals(schema.getTransporter(), tracking.getTransporter());
             assertEquals(schema.getStatus(), tracking.getStatus());
         }
@@ -153,7 +155,7 @@ class TrackingRepositoryImplTest {
             assertEquals(schema.getCreatedAt(), tracking.getCreatedAt());
             assertEquals(schema.getUpdatedAt(), tracking.getUpdatedAt());
             assertEquals(schema.getProductName(), tracking.getProductName());
-            assertEquals(schema.getTrackingCode(), tracking.getTrackingCode());
+            assertEquals(schema.getTrackingCode(), tracking.getTrackingCode().getCode());
             assertEquals(schema.getTransporter(), tracking.getTransporter());
             assertEquals(schema.getStatus(), tracking.getStatus());
         }
@@ -177,7 +179,7 @@ class TrackingRepositoryImplTest {
         tracking.setCreatedAt(LocalDateTime.now());
         tracking.setUpdatedAt(LocalDateTime.now());
         tracking.setProductName("Test Product");
-        tracking.setTrackingCode("AA123456789BR");
+        tracking.setTrackingCode(new TrackingCode("AA123456789BR"));
         tracking.setTransporter(Transporter.CORREIOS);
         tracking.setStatus(Status.IN_PROGRESS);
         return tracking;

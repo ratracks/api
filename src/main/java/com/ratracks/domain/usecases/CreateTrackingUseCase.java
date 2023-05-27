@@ -3,7 +3,8 @@ package com.ratracks.domain.usecases;
 import java.util.UUID;
 
 import com.ratracks.domain.contracts.repositories.TrackingRepository;
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
+import com.ratracks.domain.entities.tracking.valueobjects.TrackingCode;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class CreateTrackingUseCase implements UseCase<CreateTrackingUseCase.Inpu
     @Override
     public Output execute(Input input) {
 
-        Tracking tracking = new Tracking(input.productName, input.trackingCode, input.transporter, input.status, input.userId);
+        Tracking tracking = new Tracking(input.productName, new TrackingCode(input.trackingCode), input.transporter, input.status, input.userId);
 
         repository.create(tracking);
 

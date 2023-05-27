@@ -3,6 +3,8 @@ package com.ratracks.domain.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.ratracks.domain.entities.tracking.Tracking;
+import com.ratracks.domain.entities.tracking.valueobjects.TrackingCode;
 import com.ratracks.exceptions.TrackingCodeException;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
@@ -24,10 +26,10 @@ public class TrackingTest {
         Transporter transporter = Transporter.CORREIOS;
         UUID userId = UUID.randomUUID();
 
-        Tracking entity = new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status, userId);
+        Tracking entity = new Tracking(id, createdAt, updatedAt, productName, new TrackingCode(trackingCode), transporter, status, userId);
 
         assertEquals(productName, entity.getProductName());
-        assertEquals(trackingCode, entity.getTrackingCode());
+        assertEquals(trackingCode, entity.getTrackingCode().getCode());
         assertEquals(status, entity.getStatus());
         assertEquals(transporter, entity.getTransporter());
     }
@@ -43,7 +45,7 @@ public class TrackingTest {
         Transporter transporter = Transporter.CORREIOS;
         UUID userId = UUID.randomUUID();
 
-        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status, userId));
+        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, new TrackingCode(trackingCode), transporter, status, userId));
     }
 
     @Test
@@ -57,6 +59,6 @@ public class TrackingTest {
         Transporter transporter = Transporter.CORREIOS;
         UUID userId = UUID.randomUUID();
 
-        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, trackingCode, transporter, status, userId));
+        assertThrows(TrackingCodeException.class, () -> new Tracking(id, createdAt, updatedAt, productName, new TrackingCode(trackingCode), transporter, status, userId));
     }
 }
