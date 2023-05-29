@@ -2,6 +2,7 @@ package com.ratracks.domain.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.ratracks.domain.entities.user.User;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {

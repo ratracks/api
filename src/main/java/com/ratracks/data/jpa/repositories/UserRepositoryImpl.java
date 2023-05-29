@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ratracks.data.schemas.UserSchema;
 import com.ratracks.domain.contracts.repositories.UserRepository;
-import com.ratracks.domain.entities.User;
+import com.ratracks.domain.entities.user.User;
 import com.ratracks.exceptions.CreateUserException;
 
 @Repository

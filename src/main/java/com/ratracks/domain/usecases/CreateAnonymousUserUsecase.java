@@ -3,7 +3,7 @@ package com.ratracks.domain.usecases;
 import java.util.UUID;
 
 import com.ratracks.domain.contracts.repositories.UserRepository;
-import com.ratracks.domain.entities.AnonymousUser;
+import com.ratracks.domain.entities.anonymoususer.AnonymousUser;
 
 import lombok.Value;
 import lombok.AllArgsConstructor;

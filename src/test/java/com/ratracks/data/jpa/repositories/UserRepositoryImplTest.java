@@ -1,7 +1,7 @@
 package com.ratracks.data.jpa.repositories;
 
 import com.ratracks.data.schemas.UserSchema;
-import com.ratracks.domain.entities.User;
+import com.ratracks.domain.entities.user.User;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;

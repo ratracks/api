@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.ratracks.domain.entities.Tracking;
+import com.ratracks.domain.entities.tracking.Tracking;
 import com.ratracks.domain.enums.Status;
 import com.ratracks.domain.enums.Transporter;
 import com.ratracks.domain.usecases.CreateTrackingUseCase;
