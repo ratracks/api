@@ -26,7 +26,7 @@ public class CorreiosShippingService extends AbstractShippingService {
     private final TokenShippingRepository repository;
 
     @Autowired
-    public CorreiosShippingService(RestTemplate restTemplate, Environment env, UrlBuilder urlBuilder, TokenShippingRepository repository) {
+    private CorreiosShippingService(RestTemplate restTemplate, Environment env, UrlBuilder urlBuilder, TokenShippingRepository repository) {
         this.restTemplate = restTemplate;
         this.env = env;
         this.urlBuilder = urlBuilder;
@@ -34,21 +34,19 @@ public class CorreiosShippingService extends AbstractShippingService {
     }
 
 
-    public String getApiTokenValidOnDatabase() throws Exception {
+    private String getApiTokenValidOnDatabase() throws Exception {
         Optional<TokenShippingSchema> tokenShippingSchema = repository.getTokenShippingByName("correios");
-        String token = null;
+        String token;
 
         if (tokenShippingSchema.isPresent()) {
             TokenShippingSchema tokenShipping = tokenShippingSchema.get();
             boolean tokenIsGreaterThanThirtyMinutes = ValidateTime.isGreaterThanThirtyMinutes(tokenShipping.getUpdatedAt());
-            if (!tokenIsGreaterThanThirtyMinutes) {
-                return tokenShipping.getToken();
-            } else {
+            if (tokenIsGreaterThanThirtyMinutes) {
                 tokenShipping.setToken(generateToken());
                 tokenShipping.setUpdatedAt(LocalDateTime.now());
                 repository.save(tokenShipping);
-                return tokenShipping.getToken();
             }
+            return tokenShipping.getToken();
         } else {
             token = generateToken();
             TokenShipping tokenShipping = new TokenShipping("correios", token);
@@ -57,7 +55,7 @@ public class CorreiosShippingService extends AbstractShippingService {
         return token;
     }
 
-    public String generateToken() throws Exception {
+    private String generateToken() throws Exception {
         try {
             String apiUrl = urlBuilder.buildCorreiosApiUrl("app-validation");
             HttpHeaders headers = new HttpHeaders();
@@ -86,7 +84,7 @@ public class CorreiosShippingService extends AbstractShippingService {
     }
 
     @Override
-    public String getDetailsByTrackingCode (String trackCode) throws Exception {
+    public String getDetailsByTrackingCode(String trackCode) throws Exception {
         StringBuilder path = new StringBuilder();
         path.append("sro-rastro/");
         path.append(trackCode);
@@ -114,8 +112,5 @@ public class CorreiosShippingService extends AbstractShippingService {
         } catch (Exception ex) {
             throw new Exception("Unexpected error calling Correios API: " + ex.getMessage());
         }
-    }
-
-    public void setRepository(TokenShippingRepository mockRepository) {
     }
 }
