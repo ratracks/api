@@ -2,8 +2,10 @@ package com.ratracks.presenter.controllers;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+import com.ratracks.domain.contracts.services.TrackingDetails;
+import com.ratracks.domain.usecases.GetTrackingDetailsUseCase;
+import com.ratracks.infra.services.CorreiosShippingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,11 @@ public class TrackingController {
 
     private final GetTrackingsUseCase getTrackingsUseCase;
 
+    private final GetTrackingDetailsUseCase getTrackingDetailsUseCase;
+
     private final CreateTrackingUseCase createTrackingUseCase;
+
+    private final CorreiosShippingService correiosShippingService;
 
     @GetMapping
     @ResponseBody
@@ -44,6 +50,34 @@ public class TrackingController {
                         t.getStatus().toString(), t.getUserId().toString()))
                 .toList();
     }
+
+    @GetMapping("/details/{id}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public TrackingDto getTrackingById(@PathVariable UUID id) throws Exception {
+
+        Tracking tracking = getTrackingDetailsUseCase.execute(new GetTrackingDetailsUseCase.Input(id)).getTracking();
+
+        TrackingDto trackingDto = new TrackingDto(
+                tracking.getId().toString(),
+                tracking.getCreatedAt().toString(),
+                tracking.getUpdatedAt().toString(),
+                tracking.getProductName(),
+                tracking.getTrackingCode().getCode(),
+                tracking.getTransporter().toString(),
+                tracking.getStatus().toString(),
+                tracking.getUserId().toString()
+        );
+
+        if (trackingDto.getTrackingDetails() == null) {
+            TrackingDetails trackingDetails = correiosShippingService.getDetailsByTrackingCode(trackingDto.getTrackingCode());
+
+            trackingDto.setTrackingDetails(trackingDetails);
+        }
+
+        return trackingDto;
+    }
+
 
     @PostMapping
     public Tracking createTracking(@RequestBody CreateTrackingDto params) {
