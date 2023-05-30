@@ -1,5 +1,6 @@
 package com.ratracks.presenter;
 
+import com.ratracks.domain.usecases.GetTrackingDetailsUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +21,11 @@ public class Module {
     @Bean
     public GetTrackingsUseCase getTrackingsUseCase(TrackingRepository repository) {
         return new GetTrackingsUseCase(repository);
+    }
+
+    @Bean
+    public GetTrackingDetailsUseCase getTrackingDetailsUseCase(TrackingRepository repository) {
+        return new GetTrackingDetailsUseCase(repository);
     }
 
     @Bean
