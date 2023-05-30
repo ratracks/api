@@ -1,6 +1,7 @@
 package com.ratracks.infra.services;
 
 import com.ratracks.domain.contracts.services.AbstractShippingService;
+import com.ratracks.domain.contracts.services.TrackingDetails;
 import com.ratracks.infra.entities.TokenShipping;
 import com.ratracks.infra.repositories.TokenShippingRepository;
 import com.ratracks.infra.schemas.TokenShippingSchema;
@@ -84,7 +85,7 @@ public class CorreiosShippingService extends AbstractShippingService {
     }
 
     @Override
-    public String getDetailsByTrackingCode(String trackCode) throws Exception {
+    public TrackingDetails getDetailsByTrackingCode(String trackCode) throws Exception {
         StringBuilder path = new StringBuilder();
         path.append("sro-rastro/");
         path.append(trackCode);
@@ -105,8 +106,8 @@ public class CorreiosShippingService extends AbstractShippingService {
                     request,
                     String.class
             );
-
-            return responseEntity.getBody();
+            CorreiosTrackingMapper mapper = new CorreiosTrackingMapper();
+            return mapper.mapJsonToTrackingDetails(responseEntity.getBody());
         } catch (HttpStatusCodeException ex) {
             throw new Exception("Error get information of track Code in Correios API: " + ex.getMessage());
         } catch (Exception ex) {
