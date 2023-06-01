@@ -3,10 +3,10 @@ package com.ratracks.utils.localDateTime;
 import java.time.LocalDateTime;
 
 public class ValidateTime {
-    public static boolean isGreaterThanThirtyMinutes(LocalDateTime dateTime) {
+    public static boolean isGreaterThanThirtyMinutes(LocalDateTime dateTimeToken) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime thirtyMinutesLater = now.plusMinutes(30);
+        LocalDateTime tokenThirtyMinutesLater = dateTimeToken.plusMinutes(30);
 
-        return dateTime.isAfter(thirtyMinutesLater);
+        return now.isAfter(tokenThirtyMinutesLater);
     }
 }
